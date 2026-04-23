@@ -1,0 +1,132 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 72px);
+  overflow: hidden;
+  background: var(--background);
+}
+
+/* HEADER */
+.pageHeader {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 32px 18px;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.subtitle { font-size: 13px; color: #64748B; margin-top: 4px; }
+.headerStats { display: flex; gap: 20px; }
+.hStat { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; }
+.hStatDot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* TOOLBAR */
+.toolbar {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 14px 32px;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.searchBox {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--background); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 16px; width: 320px;
+}
+.searchInput {
+  border: none; background: transparent; outline: none;
+  font-size: 14px; width: 100%; color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+}
+.filterGroup { display: flex; gap: 6px; flex-wrap: wrap; }
+.filterPill {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 16px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--background);
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  font-family: var(--font-inter), sans-serif; transition: all 0.15s;
+}
+.filterPill:hover { border-color: var(--primary); color: var(--primary); }
+.filterPillActive { background: var(--primary); color: #fff; border-color: var(--primary); }
+.filterCount {
+  font-size: 11px; font-weight: 700;
+  background: rgba(255,255,255,0.25);
+  padding: 1px 7px; border-radius: 999px; min-width: 20px; text-align: center;
+}
+.filterPillActive .filterCount { background: rgba(255,255,255,0.3); color: #fff; }
+.filterPill:not(.filterPillActive) .filterCount { background: var(--border); color: #64748B; }
+
+/* LIST */
+.listWrap { flex: 1; overflow-y: auto; padding: 8px 32px 24px; }
+
+/* PATIENT ROW */
+.patientRow {
+  display: flex; align-items: center; gap: 20px;
+  padding: 18px 20px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; margin-bottom: 8px;
+  cursor: pointer; transition: all 0.15s;
+}
+.patientRow:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+  transform: translateY(-1px);
+}
+.rowActive {
+  border-color: #86EFAC;
+  background: linear-gradient(to right, #F0FDF4, var(--surface));
+}
+
+.avatar {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  background: var(--primary-light); color: var(--primary);
+  font-weight: 700; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.mainInfo { flex: 2; min-width: 0; }
+.nameRow { display: flex; align-items: center; gap: 10px; margin-bottom: 3px; }
+.name { font-size: 15px; font-weight: 700; color: var(--foreground); }
+.alertBadge {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; color: #DC2626;
+  background: #FEF2F2; border: 1px solid #FCA5A5;
+  padding: 2px 8px; border-radius: 999px; flex-shrink: 0;
+}
+.meta { font-size: 12px; color: #94A3B8; display: block; margin-bottom: 6px; }
+.alertsList { display: flex; gap: 6px; flex-wrap: wrap; }
+.alertTag {
+  font-size: 11px; font-weight: 600; color: #B91C1C;
+  background: #FEF2F2; border: 1px solid #FCA5A5;
+  padding: 2px 8px; border-radius: 6px;
+}
+
+.reason { flex: 1.5; min-width: 0; }
+.reasonLabel { display: block; font-size: 11px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
+.reasonValue { font-size: 14px; color: var(--foreground); font-weight: 500; }
+
+.visits { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; align-items: flex-end; }
+.visitsVal { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: var(--foreground); }
+.lastVisit { font-size: 11px; color: #94A3B8; }
+
+.statusBadge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600;
+  padding: 5px 12px; border-radius: 999px; border: 1px solid;
+  white-space: nowrap;
+}
+.pulseDot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #16A34A;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* EMPTY */
+.empty {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 80px 32px; text-align: center;
+  border: 2px dashed var(--border); border-radius: 20px;
+  margin-top: 24px;
+}
+.emptySub { font-size: 14px; color: #94A3B8; margin-top: 8px; }

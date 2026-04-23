@@ -1,0 +1,125 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  background: var(--background);
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.subtitle { font-size: 13px; color: #64748B; margin-top: 4px; }
+.headerBadge {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 999px;
+  font-size: 13px; font-weight: 600; color: #16A34A;
+}
+
+.body { padding: 28px 32px; display: flex; flex-direction: column; gap: 24px; }
+
+/* STAT CARDS */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.statCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.statIcon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.statInfo { display: flex; flex-direction: column; gap: 2px; }
+.statValue { font-size: 28px; font-weight: 800; line-height: 1; margin: 0; }
+.statLabel { font-size: 13px; font-weight: 600; color: var(--foreground); margin: 2px 0 0; }
+.statSub   { font-size: 12px; color: #94A3B8; margin: 0; }
+
+/* MIDDLE ROW */
+.middleRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* GENERIC CARD */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+.cardHeader {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px;
+}
+.cardTitle { font-size: 15px; font-weight: 700; margin: 0; }
+.cardSub   { font-size: 12px; color: #94A3B8; }
+
+/* BAR CHART */
+.barChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  height: 160px;
+  padding-bottom: 4px;
+}
+.barGroup {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;
+}
+.barStack {
+  display: flex; align-items: flex-end; gap: 3px; flex: 1;
+  width: 100%; justify-content: center;
+}
+.bar {
+  width: 14px;
+  border-radius: 4px 4px 0 0;
+  transition: opacity 0.15s;
+}
+.bar:hover { opacity: 0.8; }
+.barVal  { font-size: 11px; font-weight: 700; color: var(--primary); align-self: flex-end; }
+.barLabel{ font-size: 12px; font-weight: 600; color: #64748B; }
+.legend  { display: flex; gap: 16px; margin-top: 12px; justify-content: center; }
+.legendItem { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #64748B; }
+.legendDot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+/* SPECIALTIES */
+.specialtyList { display: flex; flex-direction: column; gap: 14px; }
+.specialtyRow  { display: flex; align-items: center; gap: 12px; }
+.specMeta { width: 160px; flex-shrink: 0; }
+.specName  { display: block; font-size: 13px; font-weight: 600; color: var(--foreground); }
+.specCount { display: block; font-size: 11px; color: #94A3B8; }
+.progressBar {
+  flex: 1; height: 8px; background: var(--background); border-radius: 999px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.progressFill { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
+.specPct { font-size: 12px; font-weight: 700; color: var(--foreground); width: 36px; text-align: right; }
+
+/* ACTIVITY */
+.activityList { display: flex; flex-direction: column; gap: 1px; }
+.activityRow {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.activityRow:last-child { border-bottom: none; }
+.activityDot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.activityTime    { font-size: 12px; color: #94A3B8; font-weight: 600; width: 48px; flex-shrink: 0; }
+.activityAction  { font-weight: 600; color: var(--foreground); flex: 1; }
+.activityPatient { font-size: 13px; color: #64748B; width: 180px; flex-shrink: 0; }
