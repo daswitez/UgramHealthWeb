@@ -1,0 +1,285 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  height: 100%;
+}
+
+/* FILTERS */
+.filtersBar {
+  display: flex;
+  gap: 8px;
+  padding: 24px 40px 16px;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--surface);
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-inter), sans-serif;
+}
+.filterBtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.filterBtnActive {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* WEEK NAV */
+.weekNav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 40px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.weekLabel {
+  font-weight: 600;
+  font-size: 15px;
+  min-width: 220px;
+  text-align: center;
+}
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.navBtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* GRID */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 72px repeat(5, 1fr);
+  overflow-y: auto;
+  flex: 1;
+  background: var(--background);
+}
+
+.timeGutter {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dayHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.dayName {
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+}
+.dayDate {
+  font-size: 12px;
+  color: #64748B;
+}
+
+.timeCell {
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 12px;
+  color: #94A3B8;
+  font-weight: 500;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  background: var(--surface);
+}
+
+.slot {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  padding: 4px;
+  transition: background 0.1s ease;
+  overflow: hidden;
+  position: relative;
+}
+.slot:hover {
+  background: var(--background);
+}
+.slotFilled {
+  cursor: pointer;
+}
+
+/* APPOINTMENT CARD */
+.aptCard {
+  height: 100%;
+  border-radius: 8px;
+  border: 1px solid;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden;
+  transition: filter 0.15s;
+}
+.aptCard:hover {
+  filter: brightness(0.96);
+}
+.urgentBadge {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #DC2626;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.aptPatient {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+.aptMeta {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+.statusBadge {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 999px;
+  align-self: flex-start;
+  margin-top: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* MODAL */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+.modal {
+  background: var(--surface);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+.modalHeader {
+  padding: 28px;
+  border-bottom: 1px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.modalBody {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.modalRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--foreground);
+}
+.alertBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #DC2626;
+}
+.modalActions {
+  padding: 20px 28px;
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+}
+.modalBtnPrimary {
+  flex: 1;
+  padding: 14px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: var(--font-inter), sans-serif;
+  transition: background 0.15s;
+}
+.modalBtnPrimary:hover { background: var(--primary-hover); }
+.modalBtnSecondary {
+  flex: 1;
+  padding: 14px;
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: var(--font-inter), sans-serif;
+}
