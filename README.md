@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 Ugram Health - Portal Web Administrativo
+_El Ecosistema EMR (Electronic Medical Record) centralizado para la FUSUM._
 
-## Getting Started
+Ugram Health Web es la bóveda administrativa diseñada exclusivamente en **Next.js + TypeScript** que maneja, orquesta y dirige todas las peticiones móviles de los usuarios y estudiantes de la UAGRM. 
 
-First, run the development server:
+Cuenta con estándares visuales **Swiss Modernism 2.0**, absteniéndose del desorden y priorizando la velocidad operativa de médicos de guardia mediante *CSS Vainilla*.
 
-```bash
+---
+
+## 🚀 Inicio Rápido (Despliegue Local)
+
+Asegúrate de contar con Node.js `20.x` o superior para garantizar que el motor de renderizado asíncrono no arroje alertas.
+
+\`\`\`bash
+# 1. Instalar las dependencias estrictas
+npm install
+
+# 2. Levantar el entorno de Desarrollo (Puerto 3000)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 3. Compilación limpia para Producción (Caja de Salud)
+npm run build && npm start
+\`\`\`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧠 Arquitectura de Módulos (En Desarrollo)
 
-## Learn More
+El Portal Web Administrativo restringe por completo el acceso a Estudiantes; su uso requiere verificación *Single Sign-On (SSO)* por correos de dominio institucional.
 
-To learn more about Next.js, take a look at the following resources:
+1. **Dashboard (Kanban-Grid):** *(WIP Sprint 2)* - Interface táctil para reprogramar turnos bajo formato *Drag and Drop* de lunes a viernes.
+2. **Editor Clínico Split-View:** Formulario en pantalla doble con historial persistente para recetar a los estudiantes rápidamente mediante atajos.
+3. **Caché Masivo Bio-Químico:** Lotes web para leer archivos PDF e inyectar decenas de resultados ecográficos directamente en los perfiles móviles de los usuarios en tiempo récord.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🛡️ Políticas de Estilo y CSS
+Este proyecto tiene **estrictamente baneado el uso de frameworks CSS genéricos (TailwindCSS/Bootstrap)**.
+Todas las operaciones estilísticas deben referirse primero al Token base en `/src/app/globals.css`. Todo componente debe diseñarse aislando el ruido bajo la filosofía de "Espacio en blanco curativo". Ver más en `DESIGN_SYSTEM.md`.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> Este software conforma la suite "Ugram Health".
+> Creado para revolucionar el seguro clínico estudiantil.
