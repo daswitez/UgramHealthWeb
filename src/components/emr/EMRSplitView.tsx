@@ -3,6 +3,8 @@
 import React, { useState, useRef, useCallback } from "react";
 import { AlertCircle, Clock, FileText, ChevronDown, ChevronUp, Pill, TestTube, Save, CheckCircle } from "lucide-react";
 import styles from "./EMRSplitView.module.css";
+import PrescriptionModal from "./PrescriptionModal";
+import LabOrderModal from "./LabOrderModal";
 
 // ─── MOCK PATIENT DATA ───────────────────────────────────────────────
 const PATIENT = {
@@ -39,6 +41,10 @@ export default function EMRSplitView() {
   const [showSnippets, setShowSnippets] = useState(false);
   const [expandHistory, setExpandHistory] = useState(true);
   const textRef = useRef<HTMLTextAreaElement>(null);
+
+  // Modal state
+  const [showPrescription, setShowPrescription] = useState(false);
+  const [showLabOrder, setShowLabOrder] = useState(false);
 
   // Snippet detection
   const handleNoteChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -200,17 +206,31 @@ export default function EMRSplitView() {
         <div className={styles.quickActions}>
           <p className={styles.quickLabel}>Órdenes Rápidas</p>
           <div className={styles.quickBtns}>
-            <button className={styles.quickBtn}>
+            <button className={styles.quickBtn} onClick={() => setShowLabOrder(true)}>
               <TestTube size={15} />
               Orden de Laboratorio
             </button>
-            <button className={styles.quickBtn}>
+            <button className={`${styles.quickBtn} ${styles.quickBtnPrimary}`} onClick={() => setShowPrescription(true)}>
               <Pill size={15} />
               Prescribir Medicamento
             </button>
           </div>
         </div>
       </main>
+
+      {/* ── MODALS ── */}
+      {showPrescription && (
+        <PrescriptionModal
+          patientName={PATIENT.name}
+          onClose={() => setShowPrescription(false)}
+        />
+      )}
+      {showLabOrder && (
+        <LabOrderModal
+          patientName={PATIENT.name}
+          onClose={() => setShowLabOrder(false)}
+        />
+      )}
     </div>
   );
 }

@@ -384,4 +384,16 @@
 .quickBtn:hover {
   border-color: var(--primary);
   color: var(--primary);
+  background: var(--primary-light);
+}
+
+.quickBtnPrimary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.quickBtnPrimary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #fff;
 }
