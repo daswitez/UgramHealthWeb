@@ -382,4 +382,15 @@
   background: var(--background); border: 1px solid var(--border);
   border-radius: 10px; font-size: 14px; font-weight: 600;
   cursor: pointer; font-family: var(--font-inter), sans-serif;
+  color: var(--foreground);
+  transition: all 0.15s;
+}
+.downloadBtn:hover:not(:disabled) {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.downloadBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }

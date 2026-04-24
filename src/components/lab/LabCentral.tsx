@@ -3,9 +3,10 @@
 import React, { useState, useRef } from "react";
 import {
   CheckSquare, Square, CheckCircle, Clock, Upload,
-  FileText, Filter, AlertCircle, Download, X, ChevronDown
+  FileText, AlertCircle, Download, X
 } from "lucide-react";
 import styles from "./LabCentral.module.css";
+import { generateHemogramaPDF } from "./generateHemograma";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
 type LabStatus = "pending" | "ready" | "approved" | "urgent";
@@ -345,9 +346,19 @@ export default function LabCentral() {
                         <CheckCircle size={16} /> Aprobar y Notificar Paciente
                       </button>
                     ) : null}
-                    <button className={styles.downloadBtn}>
-                      <Download size={16} /> Descargar PDF
-                    </button>
+                    {detail.id === "L001" ? (
+                      <button
+                        className={styles.downloadBtn}
+                        onClick={() => generateHemogramaPDF()}
+                        title="Descargar hemograma completo en PDF"
+                      >
+                        <Download size={16} /> Descargar PDF
+                      </button>
+                    ) : (
+                      <button className={styles.downloadBtn} disabled title="PDF no disponible para este examen">
+                        <Download size={16} /> PDF no disponible
+                      </button>
+                    )}
                   </div>
                 </>
               )}
