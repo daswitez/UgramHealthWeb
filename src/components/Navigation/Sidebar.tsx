@@ -6,17 +6,27 @@ import { usePathname } from "next/navigation";
 import { CalendarDays, ClipboardList, LayoutDashboard, TestTube, Users } from "lucide-react";
 import { useAuth } from "../../store/AuthContext";
 
-const routes = [
-  { label: "Mi Panel",        icon: LayoutDashboard, href: "/dashboard" },
-  { label: "Mi Agenda",       icon: CalendarDays,    href: "/" },
-  { label: "Mis Pacientes",   icon: Users,           href: "/pacientes" },
-  { label: "Ficha Clínica",   icon: ClipboardList,   href: "/ficha" },
-  { label: "Mis Órdenes Lab", icon: TestTube,        href: "/lab" },
-];
-
 export default function Sidebar() {
   const pathname = usePathname();
-  const { doctor } = useAuth();
+  const { user } = useAuth();
+
+  // Mínimo Privilegio: Mostrar rutas solo correspondientes al rol
+  let visibleRoutes = [];
+  if (user?.role === "ADMIN") {
+    visibleRoutes = [
+      { label: "Panel Principal", icon: LayoutDashboard, href: "/admin/dashboard" },
+      { label: "Gestión de Personal", icon: Users, href: "/admin/iam" },
+    ];
+  } else {
+    // Por defecto DOCTOR
+    visibleRoutes = [
+      { label: "Mi Panel",        icon: LayoutDashboard, href: "/dashboard" },
+      { label: "Mi Agenda",       icon: CalendarDays,    href: "/" },
+      { label: "Mis Pacientes",   icon: Users,           href: "/pacientes" },
+      { label: "Ficha Clínica",   icon: ClipboardList,   href: "/ficha" },
+      { label: "Mis Órdenes Lab", icon: TestTube,        href: "/lab" },
+    ];
+  }
 
   return (
     <aside style={{ width: "256px", height: "100vh", backgroundColor: "var(--surface)", borderRight: "1px solid var(--border)", display: "flex", flexDirection: "column", flexShrink: 0 }}>
@@ -24,18 +34,20 @@ export default function Sidebar() {
       {/* LOGO */}
       <div style={{ padding: "24px 20px 18px", borderBottom: "1px solid var(--border)" }}>
         <h1 style={{ color: "var(--primary)", fontSize: "19px", marginBottom: "3px" }}>Ugram Health</h1>
-        <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Portal Clínico · Médico</p>
+        <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>
+          Portal {user?.role === "ADMIN" ? "Administrativo" : "Clínico · Médico"}
+        </p>
       </div>
 
-      {/* DOCTOR CHIP */}
-      {doctor && (
+      {/* USER CHIP */}
+      {user && (
         <div style={{ padding: "14px 20px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: "10px" }}>
           <div style={{ width: 38, height: 38, borderRadius: "50%", backgroundColor: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            {doctor.initials}
+            {user.initials}
           </div>
           <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: 13, fontWeight: 700, margin: 0, color: "var(--foreground)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doctor.name}</p>
-            <p style={{ fontSize: 11, color: "#64748B", margin: 0 }}>{doctor.specialty}</p>
+            <p style={{ fontSize: 13, fontWeight: 700, margin: 0, color: "var(--foreground)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.name}</p>
+            <p style={{ fontSize: 11, color: "#64748B", margin: 0 }}>{user.specialty || user.role}</p>
           </div>
         </div>
       )}
@@ -43,9 +55,9 @@ export default function Sidebar() {
       {/* NAV */}
       <nav style={{ flex: 1, padding: "12px 10px", overflowY: "auto" }}>
         <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "3px" }}>
-          {routes.map((route) => {
+          {visibleRoutes.map((route) => {
             const Icon = route.icon;
-            const active = pathname === route.href;
+            const active = pathname === route.href || pathname.startsWith(route.href + "/");
             return (
               <li key={route.href}>
                 <Link href={route.href} style={{ textDecoration: "none" }}>

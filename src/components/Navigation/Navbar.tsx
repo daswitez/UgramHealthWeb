@@ -5,7 +5,7 @@ import { Search, Bell, LogOut } from "lucide-react";
 import { useAuth } from "../../store/AuthContext";
 
 export default function Navbar() {
-  const { logout, doctor } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <header style={{
@@ -29,9 +29,9 @@ export default function Navbar() {
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
 
         {/* Specialty badge */}
-        {doctor && (
+        {user && user.specialty && (
           <div style={{ padding: "6px 14px", background: "var(--primary-light)", border: "1px solid #BFDBFE", borderRadius: "999px", fontSize: 12, fontWeight: 700, color: "var(--primary)" }}>
-            {doctor.specialty}
+            {user.specialty}
           </div>
         )}
 
@@ -44,13 +44,13 @@ export default function Navbar() {
         <div style={{ width: "1px", height: "28px", backgroundColor: "var(--border)" }} />
 
         {/* Avatar + name */}
-        {doctor && (
+        {user && (
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div style={{ width: 38, height: 38, borderRadius: "50%", backgroundColor: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: 14 }}>
-              {doctor.initials}
+              {user.initials}
             </div>
             <div>
-              <p style={{ fontWeight: 700, fontSize: 13, margin: 0 }}>{doctor.name}</p>
+              <p style={{ fontWeight: 700, fontSize: 13, margin: 0 }}>{user.name}</p>
               <p style={{ fontSize: 11, color: "#64748B", margin: 0 }}>En turno</p>
             </div>
           </div>
