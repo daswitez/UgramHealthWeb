@@ -29,20 +29,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const envelope = await response.json();
         const d = envelope.data || envelope;
 
-        const first   = d.firstName || "";
-        const last    = d.lastName  || "";
-        const role    = d.userType  || d.role || (isStaff ? "DOCTOR" : "STUDENT");
-        const token   = d.accessToken;
-        const refresh = d.refreshToken;
+        const token    = d.accessToken;
+        const refresh  = d.refreshToken;
+
+        // userType viene directo del login (ya implementado en backend)
+        // El objeto "user" dentro de data también existe como fallback
+        const u = d.user || {};
+        const rawRole  = d.userType || u.userType || "";
+        const first    = d.firstName || u.firstName || "";
+        const last     = d.lastName  || u.lastName  || "";
+        const specialty = d.specialty || "";
+
+        // Normalizar: "ROLE_ADMIN" → "ADMIN", "admin" → "ADMIN"
+        const role = rawRole.replace(/^ROLE_/i, "").toUpperCase() || (isStaff ? "STAFF" : "STUDENT");
+
+        console.log("[Auth] Login OK →", { role, first, last });
 
         setIsAuthenticated(true);
         setUser({
-          name:      `${first} ${last}`.trim() || role,
+          name:         `${first} ${last}`.trim() || role,
           role,
           token,
           refreshToken: refresh,
-          initials:  ((first[0] || "") + (last[0] || "")).toUpperCase() || role.substring(0, 2),
-          specialty: d.specialty || undefined,
+          initials:     ((first[0] || "") + (last[0] || "")).toUpperCase() || role.substring(0, 2),
+          specialty:    specialty || undefined,
         });
       } else {
         const errText = await response.text().catch(() => "");

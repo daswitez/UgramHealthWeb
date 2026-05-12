@@ -15,9 +15,9 @@ export default function Sidebar() {
   let visibleRoutes = [];
   if (user?.role === "ADMIN") {
     visibleRoutes = [
-      { label: "Panel Principal", icon: LayoutDashboard, href: "/admin/dashboard" },
-      { label: "Gestión de Personal", icon: Users, href: "/admin/iam" },
-      { label: "Feriados (Institucional)", icon: CalendarDays, href: "/admin/calendar/holidays" },
+      { label: "Panel Principal",        icon: LayoutDashboard, href: "/admin/dashboard" },
+      { label: "Personal",               icon: Users,           href: "/admin/staff" },
+      { label: "Calendario Institucional", icon: CalendarDays,  href: "/admin/calendar/holidays" },
     ];
   } else {
     // Por defecto DOCTOR

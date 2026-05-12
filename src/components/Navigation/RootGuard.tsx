@@ -17,19 +17,29 @@ export default function RootGuard({ children }: { children: React.ReactNode }) {
 
     const role = user.role;
 
-    // RBAC Routing Guard (Principio de Mínimo Privilegio)
-    if (role === "STUDENT") {
-      if (!pathname.startsWith("/patient")) {
-        router.replace("/patient/dashboard");
-      }
-    } else if (role === "ADMIN") {
-      if (!pathname.startsWith("/admin")) {
-        router.replace("/admin/iam");
-      }
-    } else if (role === "DOCTOR") {
-      if (pathname.startsWith("/admin") || pathname.startsWith("/patient")) {
-        router.replace("/");
-      }
+    // Rutas de inicio por rol (landing pages)
+    const HOMES: Record<string, string> = {
+      ADMIN:    "/admin/dashboard",
+      DOCTOR:   "/dashboard",
+      STUDENT:  "/patient/dashboard",
+      LAB_TECH: "/dashboard",
+    };
+
+    // Prefijos de rutas permitidas por rol (principio de mínimo privilegio)
+    const ALLOWED_PREFIXES: Record<string, string[]> = {
+      ADMIN:   ["/admin"],
+      DOCTOR:  ["/doctor", "/dashboard", "/pacientes", "/ficha", "/lab", "/sala"],
+      STUDENT: ["/patient"],
+    };
+
+    const home    = HOMES[role] ?? "/";
+    const allowed = ALLOWED_PREFIXES[role] ?? [];
+
+    const isAllowed = allowed.some(prefix => pathname.startsWith(prefix));
+    const isRoot    = pathname === "/";
+
+    if (isRoot || !isAllowed) {
+      router.replace(home);
     }
   }, [isAuthenticated, user, pathname, router]);
 
