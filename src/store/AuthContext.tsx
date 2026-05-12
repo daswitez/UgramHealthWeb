@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: { name: string; role: string; token?: string; initials: string; specialty?: string } | null;
+  user: { name: string; role: string; token?: string; refreshToken?: string; initials: string; specialty?: string } | null;
   login: (identifier: string, pass: string, isStaff: boolean) => Promise<void>;
   logout: () => void;
 }
@@ -16,46 +16,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthContextType["user"]>(null);
 
   const login = async (identifier: string, pass: string, isStaff: boolean) => {
+    const BASE = "http://localhost:8080/api/v1";
+
     try {
-      const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+      const response = await fetch(`${BASE}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ identifier, password: pass })
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const envelope = await response.json();
+        const d = envelope.data || envelope;
+
+        const first   = d.firstName || "";
+        const last    = d.lastName  || "";
+        const role    = d.userType  || d.role || (isStaff ? "DOCTOR" : "STUDENT");
+        const token   = d.accessToken;
+        const refresh = d.refreshToken;
+
         setIsAuthenticated(true);
-        setUser({ 
-          name: data.user?.name || (isStaff ? "Dr. Medardo Peñaranda" : "Estudiante Juan Pérez"), 
-          role: data.role || (isStaff ? "DOCTOR" : "STUDENT"), 
-          token: data.accessToken,
-          initials: data.user?.name ? data.user.name.substring(0, 2).toUpperCase() : (isStaff ? "MP" : "JP"),
-          specialty: isStaff ? "Medicina General" : undefined
+        setUser({
+          name:      `${first} ${last}`.trim() || role,
+          role,
+          token,
+          refreshToken: refresh,
+          initials:  ((first[0] || "") + (last[0] || "")).toUpperCase() || role.substring(0, 2),
+          specialty: d.specialty || undefined,
         });
       } else {
-        // Fallback for development
-        if (isStaff && (identifier === "admin@uagrm.edu.bo" || identifier === "admin")) {
-           setIsAuthenticated(true);
-           setUser({ name: "Dr. Medardo Peñaranda", role: "DOCTOR", initials: "MP", specialty: "Medicina General" });
-        } else if (!isStaff && identifier === "12345678") {
-           setIsAuthenticated(true);
-           setUser({ name: "Estudiante Juan Pérez", role: "STUDENT", initials: "JP" });
-        } else {
-           alert("Credenciales inválidas.");
-        }
+        const errText = await response.text().catch(() => "");
+        console.warn("[Auth] Login failed:", response.status, errText);
+        alert("Credenciales inválidas.");
       }
     } catch (error) {
-      console.warn("API Offline o error de red, usando fallback:", error);
-      if (isStaff && (identifier === "admin@uagrm.edu.bo" || identifier === "admin")) {
-        setIsAuthenticated(true);
-        setUser({ name: "Dr. Medardo Peñaranda", role: "DOCTOR", initials: "MP", specialty: "Medicina General" });
-      } else if (!isStaff && identifier === "12345678") {
-        setIsAuthenticated(true);
-        setUser({ name: "Estudiante Juan Pérez", role: "STUDENT", initials: "JP" });
-      } else {
-        alert("Credenciales inválidas (Fallback).");
-      }
+      console.warn("[Auth] API Offline:", error);
+      alert("No se pudo conectar con el servidor.");
     }
   };
 

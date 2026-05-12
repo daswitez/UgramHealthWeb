@@ -2,12 +2,13 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { CalendarDays, ClipboardList, LayoutDashboard, TestTube, Users } from "lucide-react";
 import { useAuth } from "../../store/AuthContext";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { user } = useAuth();
 
   // Mínimo Privilegio: Mostrar rutas solo correspondientes al rol
@@ -16,6 +17,7 @@ export default function Sidebar() {
     visibleRoutes = [
       { label: "Panel Principal", icon: LayoutDashboard, href: "/admin/dashboard" },
       { label: "Gestión de Personal", icon: Users, href: "/admin/iam" },
+      { label: "Feriados (Institucional)", icon: CalendarDays, href: "/admin/calendar/holidays" },
     ];
   } else {
     // Por defecto DOCTOR
@@ -39,18 +41,6 @@ export default function Sidebar() {
         </p>
       </div>
 
-      {/* USER CHIP */}
-      {user && (
-        <div style={{ padding: "14px 20px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: "10px" }}>
-          <div style={{ width: 38, height: 38, borderRadius: "50%", backgroundColor: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            {user.initials}
-          </div>
-          <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: 13, fontWeight: 700, margin: 0, color: "var(--foreground)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.name}</p>
-            <p style={{ fontSize: 11, color: "#64748B", margin: 0 }}>{user.specialty || user.role}</p>
-          </div>
-        </div>
-      )}
 
       {/* NAV */}
       <nav style={{ flex: 1, padding: "12px 10px", overflowY: "auto" }}>

@@ -3,9 +3,11 @@
 import React from "react";
 import { Search, Bell, LogOut } from "lucide-react";
 import { useAuth } from "../../store/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const { logout, user } = useAuth();
+  const router = useRouter();
 
   return (
     <header style={{
@@ -43,9 +45,14 @@ export default function Navbar() {
 
         <div style={{ width: "1px", height: "28px", backgroundColor: "var(--border)" }} />
 
-        {/* Avatar + name */}
+        {/* Avatar + name — clickable for DOCTOR */}
         {user && (
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div 
+            onClick={() => { if (user.role === "DOCTOR") router.push("/doctor/profile"); }}
+            style={{ display: "flex", alignItems: "center", gap: "10px", cursor: user.role === "DOCTOR" ? "pointer" : "default", borderRadius: "8px", padding: "4px 8px", transition: "background-color 0.15s ease" }}
+            onMouseEnter={(e) => { if (user.role === "DOCTOR") e.currentTarget.style.backgroundColor = "var(--primary-light)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
+          >
             <div style={{ width: 38, height: 38, borderRadius: "50%", backgroundColor: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: 14 }}>
               {user.initials}
             </div>
