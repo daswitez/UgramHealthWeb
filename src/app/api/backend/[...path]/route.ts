@@ -50,10 +50,21 @@ async function proxyRequest(req: NextRequest, params: { path: string[] }) {
       status:  upstream.status,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (err) {
-    console.error("[proxy] Error conectando al backend:", err);
+  } catch (err: any) {
+    console.error("[proxy] Target URL:", target);
+    console.error("[proxy] API_ORIGIN env:", process.env.API_ORIGIN);
+    console.error("[proxy] Error:", err?.message || err);
+
     return NextResponse.json(
-      { success: false, message: "Error al conectar con el servidor backend" },
+      {
+        success: false,
+        message: "Error al conectar con el servidor backend",
+        debug: {
+          target,
+          apiOrigin: process.env.API_ORIGIN || "(no seteada — usando fallback localhost)",
+          error: err?.message || String(err),
+        }
+      },
       { status: 502 }
     );
   }
