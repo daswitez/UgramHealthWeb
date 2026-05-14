@@ -18,8 +18,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (identifier: string, pass: string, isStaff: boolean) => {
     const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api/v1";
 
+    console.log("[Auth] NEXT_PUBLIC_API_URL env:", process.env.NEXT_PUBLIC_API_URL);
+    console.log("[Auth] BASE URL usado:", BASE);
+    console.log("[Auth] Payload:", JSON.stringify({ identifier, password: pass }));
+
     try {
-      const response = await fetch(`${BASE}/auth/login`, {
+      const loginURL = `${BASE}/auth/login`;
+      console.log("[Auth] Llamando a:", loginURL);
+
+      const response = await fetch(loginURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ identifier, password: pass })
