@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../../store/AuthContext";
-import { getDoctorBlocks, createDoctorBlock, deleteDoctorBlock, DoctorBlock } from "../../../../services/scheduling";
-import TimeSelector from "../../../../components/scheduling/TimeSelector";
+import { useAuth } from "@/store/AuthContext";
+import { getDoctorBlocks, createDoctorBlock, deleteDoctorBlock, DoctorBlock } from "@/services/scheduling";
+import TimeSelector from "@/components/scheduling/TimeSelector";
 import { Trash2, Plus } from "lucide-react";
 
 export default function DoctorBlocksPage() {

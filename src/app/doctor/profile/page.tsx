@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../store/AuthContext";
-import { getDoctorProfile, updateDoctorProfile, DoctorProfile } from "../../../services/profile";
+import { useAuth } from "@/store/AuthContext";
+import { getDoctorProfile, updateDoctorProfile, DoctorProfile } from "@/services/profile";
 
 // Re-usamos las páginas creadas como "Tabs" o subcomponentes
 import AvailabilityPage from "../schedule/availability/page";

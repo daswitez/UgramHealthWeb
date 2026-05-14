@@ -75,7 +75,7 @@ export interface SlotsResponse {
 
 // === Funciones Fetcher Core ===
 
-async function fetchWithAuth<T>(
+export async function fetchWithAuth<T>(
   endpoint: string,
   token: string,
   options: RequestInit = {}

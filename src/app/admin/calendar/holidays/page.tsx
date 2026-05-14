@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { useAuth } from "../../../../store/AuthContext";
+import { useAuth } from "@/store/AuthContext";
 import {
   getHolidays,
   createHoliday,
   updateHoliday,
   deleteHoliday,
   Holiday,
-} from "../../../../services/scheduling";
-import TimeSelector from "../../../../components/scheduling/TimeSelector";
+} from "@/services/scheduling";
+import TimeSelector from "@/components/scheduling/TimeSelector";
 import { ChevronLeft, ChevronRight, X, Trash2 } from "lucide-react";
 
 const MONTH_NAMES = [

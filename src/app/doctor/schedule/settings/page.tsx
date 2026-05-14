@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../../store/AuthContext";
-import { getScheduleSettings, updateScheduleSettings } from "../../../../services/scheduling";
+import { useAuth } from "@/store/AuthContext";
+import { getScheduleSettings, updateScheduleSettings } from "@/services/scheduling";
 
 export default function ScheduleSettingsPage() {
   const { user } = useAuth();

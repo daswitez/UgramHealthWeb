@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../../store/AuthContext";
-import { getDoctorAvailability, updateDoctorAvailability, WeeklySlot, DayOfWeek } from "../../../../services/scheduling";
-import TimeSelector from "../../../../components/scheduling/TimeSelector";
+import { useAuth } from "@/store/AuthContext";
+import { getDoctorAvailability, updateDoctorAvailability, WeeklySlot, DayOfWeek } from "@/services/scheduling";
+import TimeSelector from "@/components/scheduling/TimeSelector";
 import { Trash2, Plus } from "lucide-react";
 
 const DAYS_ES = {

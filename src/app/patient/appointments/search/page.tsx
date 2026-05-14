@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAuth } from "../../../../../store/AuthContext";
-import { getAppointmentSlots, AppointmentSlot } from "../../../../../services/scheduling";
+import { useAuth } from "@/store/AuthContext";
+import { getAppointmentSlots, AppointmentSlot } from "@/services/scheduling";
 import { Search, Calendar } from "lucide-react";
 
 export default function AppointmentSearchPage() {
