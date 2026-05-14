@@ -16,7 +16,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthContextType["user"]>(null);
 
   const login = async (identifier: string, pass: string, isStaff: boolean) => {
-    const BASE = "http://localhost:8080/api/v1";
+    const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api/v1";
 
     try {
       const response = await fetch(`${BASE}/auth/login`, {
